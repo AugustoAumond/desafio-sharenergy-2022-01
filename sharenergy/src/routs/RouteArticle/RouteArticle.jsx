@@ -18,8 +18,6 @@ function RouteArticle () {
 
     const dispatch = useDispatch();
 
-    console.log('article')
-
     useEffect (()=> {
         axios.get(`https://api.spaceflightnewsapi.net/v3/articles/${id}`)
     .then((response) => {

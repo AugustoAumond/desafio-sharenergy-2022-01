@@ -14,7 +14,20 @@ function Select(){
 
         if (document.querySelector('#select').value !== undefined){
             document.querySelector('#value').style.display = 'none';
-        }    
+        }   
+        
+        const height = document.querySelector('.divarticle');
+        if (value === 10){
+            height.style.height = '1185px'
+        } 
+        
+        if (value === 25){
+            height.style.height = '2825px'
+        }
+        
+        if (value === 50){
+            height.value.height = '5520px'
+        }
     }
 
     return (
@@ -55,18 +68,6 @@ justify-content: flex-start;
         border: solid 1px white;
         border-radius: 5px;
         padding: 5px;
-        cursor: pointer;
-    }
-
-    select:hover {
-        transition-duration: 1s;
-        background: gray;
-        color: white;
-    }
-
-    option:hover {
-        background: gray;
-        color: white;
         cursor: pointer;
     }
 

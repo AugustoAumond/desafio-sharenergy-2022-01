@@ -1,53 +1,51 @@
 import styled from 'styled-components';
-import {useState} from 'react';
 
 import {useSelector, useDispatch } from "react-redux";
 
 import { addID } from '../../../services/redux/store/id/id.actions';
 
 function Buttons () {
-    const [newId, setNewId] = useState('');
-
     const id = useSelector((state)=>state.id);
-
     const list = useSelector((state)=>state.list);
 
     const dispatch = useDispatch();
 
+    function AddNext(value, index){
+        document.querySelector('#back').style.display = 'block';
+        if (value === id){
+            dispatch(addID(list[index + 1].id))
+            if (list[index + 2] === undefined){
+                document.querySelector('#next').style.display = 'none';    
+            }
+        } 
+    }
+
     function NextArticle(){
         list.forEach((e, index) => {
-            if (newId === ''){
-                if (e.id === id){
-                setNewId(list[index + 1].id);
-                dispatch(addID(list[index + 1].id))
-                } 
-            } 
-            if (e.id === newId){
-                setNewId(list[index + 1].id);
-                dispatch(addID(list[index + 1].id))
-            }   
+            AddNext(e.id, index);
         });
+    }
+
+    function AddBack(value, index){
+        document.querySelector('#next').style.display = 'block';
+        if (value === id){
+            dispatch(addID(list[index - 1].id))
+            if (list[index - 2] === undefined){
+                document.querySelector('#back').style.display = 'none';    
+            }
+        } 
     }
 
     function BackArticle(){
         list.forEach((e, index) => {
-            if (newId === ''){
-                if (e.id === id){
-                setNewId(list[index - 1].id);
-                dispatch(addID(list[index + 1].id))
-                } 
-            } 
-            if (e.id === newId){
-                setNewId(list[index - 1].id);
-                dispatch(addID(list[index + 1].id))
-            }   
+             AddBack(e.id, index);   
         });
     }
 
     return (
         <DivButtons>
-            <button onClick={(()=>BackArticle())}><strong>ANTERIOR</strong></button>
-            <button onClick={(()=>NextArticle())}><strong>PRÓXIMO</strong></button>
+            <button id='back' onClick={(()=>BackArticle())}><strong>ANTERIOR</strong></button>
+            <button id='next' onClick={(()=>NextArticle())}><strong>PRÓXIMO</strong></button>
         </DivButtons>
     )
 }

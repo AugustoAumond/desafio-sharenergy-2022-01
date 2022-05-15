@@ -40,7 +40,7 @@ function Articles (){
 
     return (     
 
-        <DivArticles counter={counter}>
+        <DivArticles className='divarticle' counter={counter}>
                 <DivTitulo>
                     <h2 id='title'>Titulo do Artigo</h2>
                     <h2 id='published'> Data da Publicação </h2>
@@ -63,10 +63,10 @@ const DivArticles = styled.div`
 position: relative;
 top: 125px;
 width: 96%;
-height: ${props => props.counter === 10 ? '1185px' : (props.counter === 25  ? '2825px' : '5520px')};
 margin: 0 auto;
 max-width: 830px;
 background: #4242423d;
+padding: 35px;
 `
 
 const DivTitulo = styled.div `

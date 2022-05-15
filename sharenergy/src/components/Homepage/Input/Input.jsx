@@ -10,8 +10,6 @@ import {useDispatch} from "react-redux";
 function Input(){
     const [search, setSearch] = useState('');
 
-    console.log(search);
-
     const dispatch = useDispatch();
 
     function AddSearch (value){
@@ -40,15 +38,29 @@ function Input(){
 
     return (
         <DivInput>
-            <strong>Pesquisar pelo titulo</strong>
-            <input type="text" placeholder='Digite o titulo' value={search} onChange={((e) => AddSearch(e.currentTarget.value))}/>
-            <button onClick={(()=> AddSearch(''))}>LISTA INICIAL</button>
+            <DivName>
+                <strong>PESQUISAR PELO TITULO</strong>
+                <input type="text" placeholder='Digite o titulo' value={search} onChange={((e) => AddSearch(e.currentTarget.value))}/>
+                <button onClick={(()=> AddSearch(''))}>LISTA INICIAL</button>
+            </DivName>
+
+            <DivPublished>
+                <strong>PUBLICADA ENTRE </strong>
+                <input id='begin' placeholder='Digite a data inicial'/>
+                <strong> E </strong>
+                <input id='final' placeholder='Digite a data final'/>
+                <button> PESQUISAR </button>
+            </DivPublished>
         </DivInput>
     )
 }
 export default Input;
 
 const DivInput = styled.div`
+
+`
+
+const DivName = styled.div `
 position: relative;
 top: 75px;
 display: flex;
@@ -61,13 +73,73 @@ border-radius: 5px;
 box-shadow: 2px 4px 2px 4px #ffffff26;
 align-items: center;
 
-
     input {     
         position: absolute;
         top: 10px;
         right: 130px;
         height: 11px;
         width: 50%;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    strong {
+        width: 150px;
+        color: #ffffffc2;
+        font-size: 16px;
+        position: absolute;
+        top: 8px;
+        left: 12px;
+        text-align: center;
+    }
+
+    button {
+        transition-duration: 1s;
+        height: 35px;
+        width: 94px;
+        position: absolute;
+        right: 6px;
+        border-radius: 5px;
+        border: 1px white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        transition-duration: 1s;
+        background: gray;
+        color: white;
+    }
+`
+
+const DivPublished = styled.div `
+position: relative;
+top: 90px;
+display: flex;
+width: 95%;
+margin: 0 auto;
+max-width: 656px;
+background: #4242423d;
+height: 55px;
+border-radius: 5px;
+box-shadow: 2px 4px 2px 4px #ffffff26;
+align-items: center;
+
+    #begin {     
+        position: absolute;
+        top: 10px;
+        right: 324px;
+        height: 11px;
+        width: 20%;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    #final {
+        position: absolute;
+        top: 10px;
+        right: 131px;
+        height: 11px;
+        width: 20%;
         border-radius: 5px;
         padding: 10px;
     }
