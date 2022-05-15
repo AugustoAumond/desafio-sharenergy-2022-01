@@ -77,4 +77,15 @@ top: -19px;
         color: white;
     }
 
+    @media (max-width: 650px){
+        button {
+            width: 75px;
+            height: 25px;
+        }
+
+        strong {
+            font-size: 12px;
+        }
+    }
+
 `

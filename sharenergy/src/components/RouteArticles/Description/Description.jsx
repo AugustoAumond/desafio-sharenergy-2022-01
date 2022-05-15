@@ -31,6 +31,12 @@ background: #4242423d;
         text-align: justify;
         margin: 15px;   
     }
+
+    @media (max-width: 650px){
+        p {
+            font-size: 16px;
+        }
+    }
 `
 
 const DivPublished = styled.div`
@@ -46,5 +52,17 @@ justify-content: space-between;
     strong {
         font-size: 18px;
         color: #9e9e9e;
+    }
+
+    @media (max-width: 650px){
+        #published {
+            font-size: 12px;
+            text-align: start;
+        }
+
+        strong {
+            font-size: 14px;
+            text-align: start;
+        }
     }
 `

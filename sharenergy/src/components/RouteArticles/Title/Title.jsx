@@ -25,4 +25,11 @@ display: flex;
         color: white;
     }
 
+    @media (max-width: 650px){
+        h1 {
+            font-size: 20px;
+            top: 20px;
+        }
+    }
+
 `

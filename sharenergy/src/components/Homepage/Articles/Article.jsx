@@ -67,6 +67,15 @@ margin: 0 auto;
 max-width: 830px;
 background: #4242423d;
 padding: 35px;
+
+    @media (max-width: 850px){
+        top: 190px;
+        margin: unset;
+    }
+
+    @media (max-width: 650px){
+        padding: unset;
+    }
 `
 
 const DivTitulo = styled.div `
@@ -94,6 +103,18 @@ color: white;
         margin-top: 15px;
         width: 50%;
         text-align: center;
+    }
+
+    @media (max-width: 650px){
+    width: 80%;
+
+        #title {
+            font-size: 20px;
+        }
+
+        #published {
+            font-size: 20px;
+        }
     }
 `
 
@@ -124,5 +145,17 @@ color: white;
         width: 50%;
         text-align: center;
         cursor: pointer;
+    }
+
+    @media (max-width: 650px){
+    width: 80%;
+
+        #title {
+            font-size: 12px;
+        }
+
+        #published {
+            font-size: 12px;
+        }
     }
 `

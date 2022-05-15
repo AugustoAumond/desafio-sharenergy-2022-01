@@ -71,4 +71,12 @@ justify-content: flex-start;
         cursor: pointer;
     }
 
+    @media (max-width: 850px){
+        top: 150px;
+    }
+
+    @media (max-width: 650px){
+        margin: unset;
+    }
+
 `

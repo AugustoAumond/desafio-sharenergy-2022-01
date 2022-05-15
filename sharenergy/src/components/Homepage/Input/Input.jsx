@@ -47,7 +47,6 @@ function Input(){
             <DivPublished>
                 <strong>PUBLICADA ENTRE </strong>
                 <input id='begin' placeholder='Digite a data inicial'/>
-                <strong> E </strong>
                 <input id='final' placeholder='Digite a data final'/>
                 <button> PESQUISAR </button>
             </DivPublished>
@@ -109,6 +108,31 @@ align-items: center;
         background: gray;
         color: white;
     }
+
+    @media (max-width: 850px){
+        flex-direction: column;
+        height: 170px;
+
+        input {
+            position: relative;
+            width: 80%;
+            top: 28px;
+            right: unset;
+        }
+
+        strong {
+            position: relative;
+            width: 100%;
+            top: 12px;
+            font-size: 20px;
+        }
+
+        button {
+            position: relative;
+            top: 40px;
+            width: 200px;
+        }
+    }
 `
 
 const DivPublished = styled.div `
@@ -167,5 +191,40 @@ align-items: center;
         transition-duration: 1s;
         background: gray;
         color: white;
+    }
+
+    @media (max-width: 850px){
+        flex-direction: column;
+        top: 110px;
+        height: 170px;
+
+        strong {
+            position: relative;
+            aligne-itens: center;
+            width: 100%;
+            top: 12px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #begin {
+            position: relative;
+            right: 91px;
+            top: 28px;
+            width: 25%;    
+        }
+
+        #final {
+            position: relative;
+            right: -95px;
+            top: -8px;
+            width: 25%;  
+        }
+
+        button {
+            position: relative;
+            top: 15px;
+            width: 200px;
+        }
     }
 `

@@ -26,5 +26,9 @@ top: 50px;
 width: 80%;
 height: 100%;
 max-width: 1440px;
-margin: 0 auto;  
+margin: 0 auto;
+
+    @media (max-width: 650px){
+        width: 100%;
+    }
 `

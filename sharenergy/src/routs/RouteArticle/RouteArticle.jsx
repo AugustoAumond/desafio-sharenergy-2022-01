@@ -57,6 +57,11 @@ width: 80%;
 max-width: 1440px;
 margin: 0 auto;
 background: #4242423d;  
+
+    @media (max-width: 650px){
+        width: 100%;
+        margin: unset;
+    }
 `
 
 const DivButton = styled.div`
