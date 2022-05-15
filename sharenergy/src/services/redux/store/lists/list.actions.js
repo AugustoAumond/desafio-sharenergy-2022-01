@@ -1,5 +1,5 @@
 
-export function edit(list){
+export function editlist(list){
     return {
         type: 'edit',
         payload: list

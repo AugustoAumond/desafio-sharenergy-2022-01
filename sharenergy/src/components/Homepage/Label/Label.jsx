@@ -1,37 +1,27 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {add} from './../../../services/redux/store/counter/counter.actions';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
-import {ShowList} from './../Articles/Articles.action';
-import {HeightDivHome} from './Label.action';
+import {addcounter} from './../../../services/redux/store/counter/counter.actions';
 
 
 function Select(){
-    const [counter, setCounter] = useState(10);
-    const list = useSelector((state)=>state.list); 
 
     const dispatch = useDispatch();  
 
-    useEffect (()=>{
-
-    },[counter]);
-
     function AddCounter(value){
-        setCounter(value);
 
-        dispatch(add(value));
-        
-        HeightDivHome(value);
+        dispatch(addcounter(value));
 
-        ShowList(list, value);      
+        if (document.querySelector('#select').value !== undefined){
+            document.querySelector('#value').style.display = 'none';
+        }    
     }
 
     return (
-        <DivSelect>
+        <DivSelect className='divselect'>
             <h3>Defina o número de artigos:</h3>
             <select id='select' onChange={ e => AddCounter(e.currentTarget.value)}>
-                <option value={counter}>Escolha um valor</option>
+                <option id='value' value=''> Escolha um valor </option>
                 <option value={10}>10</option>
                 <option value={25}>25</option>
                 <option value={50}>50</option>
@@ -45,10 +35,10 @@ export default Select;
 const DivSelect = styled.div`
 display: flex;
 width: 96%;
+max-width: 830px;
 margin: 0 auto;
 position: relative;
 top: 103px;
-left: 50px;
 height: 50px;
 align-items: center;
 justify-content: flex-start;
@@ -64,5 +54,20 @@ justify-content: flex-start;
         width: 155px;
         border: solid 1px white;
         border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
     }
+
+    select:hover {
+        transition-duration: 1s;
+        background: gray;
+        color: white;
+    }
+
+    option:hover {
+        background: gray;
+        color: white;
+        cursor: pointer;
+    }
+
 `

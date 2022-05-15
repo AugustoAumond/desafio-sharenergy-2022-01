@@ -5,44 +5,48 @@ import axios from 'axios';
 import {useDispatch, useSelector } from "react-redux";
 import {  Link } from "react-router-dom";
 
-import {edit} from './../../../services/redux/store/lists/list.actions';
-import {add} from './../../../services/redux/store/id/id.actions';
+import {editlist} from './../../../services/redux/store/lists/list.actions';
+import {addID} from './../../../services/redux/store/id/id.actions';
 import {ShowList, List} from './Articles.action';
 
 function Articles (){
     const listredux = useSelector((state)=>state.list); 
     const [list, setList] = useState();
     const counter = useSelector((state)=>state.counter); 
-    
+
     const dispatch = useDispatch();  
-    
+
     useEffect (()=> {
         axios.get("https://api.spaceflightnewsapi.net/v3/articles?_limit=100")
-    .then((response) => {
+    .then((response) => {   
 
-        setList(response.data); 
+        if (listredux === null){ 
 
+            setList(response.data); 
+
+            dispatch(editlist(response.data));
+        }  
     })
     .catch((err) => {
       setList([]);
-    });
-    },[counter]);    
+    });    
+
+    },[counter, listredux]);    
 
     function AddReducer(id){
 
-        dispatch(add(id));
-
+        dispatch(addID(id));
     }
 
     return (     
 
-        <DivArticles>
+        <DivArticles counter={counter}>
                 <DivTitulo>
                     <h2 id='title'>Titulo do Artigo</h2>
                     <h2 id='published'> Data da Publicação </h2>
                 </DivTitulo>
 
-                {ShowList(list) ? ShowList(List(list, listredux), counter).map((e, index)=>( 
+                {ShowList(list || listredux) ? ShowList(List(list, listredux), counter).map((e, index)=>( 
                     <ul key={index}>
                         <DivList>
                             <li id='title'> <Link to="/article" style={{textDecoration:"none", color: 'white'}} onClick={(()=> AddReducer(e?.id))} > {e?.title} </Link></li>
@@ -59,11 +63,10 @@ const DivArticles = styled.div`
 position: relative;
 top: 125px;
 width: 96%;
-height: 1220px;
+height: ${props => props.counter === 10 ? '1185px' : (props.counter === 25  ? '2825px' : '5520px')};
 margin: 0 auto;
 max-width: 830px;
 background: #4242423d;
-
 `
 
 const DivTitulo = styled.div `

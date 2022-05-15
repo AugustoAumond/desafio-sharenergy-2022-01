@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import {useSelector } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import {  Link } from "react-router-dom";
+
+import { addcounter } from '../../services/redux/store/counter/counter.actions';
 
 import Title from '../../components/RouteArticles/Title/Title';
 import IMG from '../../components/RouteArticles/Img/Img';
@@ -13,20 +15,28 @@ import Buttons from '../../components/RouteArticles/Buttons/Buttons';
 function RouteArticle () {
     const [article, setArticle] = useState();
     const id = useSelector((state)=>state.id);
-    console.log(id);
+
+    const dispatch = useDispatch();
+
+    console.log('article')
 
     useEffect (()=> {
         axios.get(`https://api.spaceflightnewsapi.net/v3/articles/${id}`)
     .then((response) => {
 
         setArticle(response.data); 
-        console.log(response.data);
 
     })
     .catch((err) => {
       setArticle([]);
     });
     },[id]);
+
+    function AddCounter (value){
+        
+        dispatch(addcounter(value));
+
+    }
 
     return (
         <DivRouteArticle>
@@ -35,7 +45,7 @@ function RouteArticle () {
             <Description description={article?.summary} published={article?.publishedAt} updated={article?.updatedAt}/>
             <Buttons/>
             <DivButton>
-                <Link to="/" style={{textDecoration:"none", color: 'white'}}><button><strong>  VOLTAR PARA PÁGINA INICIAL</strong></button> </Link>
+                <Link to="/" style={{textDecoration:"none", color: 'white'}}><button onClick={(()=>AddCounter(10))}><strong>  VOLTAR PARA PÁGINA INICIAL</strong></button> </Link>
             </DivButton>
         </DivRouteArticle>
     )
@@ -69,6 +79,7 @@ justify-content: center;
     }
 
     button:hover {
+        transition-duration: 1s;
         background: gray;
         color: white;
     }

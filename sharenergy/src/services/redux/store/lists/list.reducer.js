@@ -1,4 +1,4 @@
-export default function listReducer (state = [], 
+export default function listReducer (state = null, 
     action){
     
     switch(action.type){
@@ -6,7 +6,6 @@ export default function listReducer (state = [],
         case 'edit': 
             return  action.payload
  
-
         default:
         return state
     } 
