@@ -7,6 +7,7 @@ import {addcounter} from './../../../services/redux/store/counter/counter.action
 import {useDispatch, useSelector} from "react-redux";
 
 import { OpenClose } from './Input.actions';
+import { Dates } from './Input.actions';
 
 
 function Input(){
@@ -25,19 +26,27 @@ function Input(){
         dispatch(addcounter(10));
 
         OpenClose(value);
-    }
+    }    
 
-    function Dates(list){
-        const newList = [];
-        for (let i = 0; i < list.length; i++) {
-            newList.push(JSON.stringify(list[i].publishedAt));
+    function AddBegin(value){
+        setBegin(value);
+        if (value !== ''){
+            document.querySelector('#name').style.display = 'none';
         }
-        return newList;
     }
 
-    function SearchDate( begin, final){
-        let newList;
-        let finalList;
+    function SearchDate(begin, final){
+        let date = [];  
+        Dates(list).forEach( (e, i) =>{        
+            if ((new Date(begin) < new Date(e.publishedAt)) && (new Date(final) > new Date(e.publishedAt))){
+                date.push(e);
+            }
+        })
+        setBegin('');
+        setFinal(''); 
+        dispatch(editlist(date));
+        dispatch(addcounter(date.length));
+        document.querySelector('#name').style.display = 'flex';
     }
 
     useEffect (()=> {
@@ -51,17 +60,17 @@ function Input(){
 
     return (
         <DivInput>
-            <DivName>
+            <DivName id='name'>
                 <strong>PESQUISAR PELO TITULO</strong>
-                <input type="text" placeholder='Digite o titulo' value={search} onChange={((e) => AddSearch(e.currentTarget.value))}/>
+                <input  type="text" placeholder='Digite o titulo' value={search} onChange={((e) => AddSearch(e.currentTarget.value))}/>
                 <button onClick={(()=> AddSearch(''))}>LISTA INICIAL</button>
             </DivName>
 
-            <DivPublished>
+            <DivPublished id='published'>
                 <strong>PUBLICADA ENTRE </strong>
-                <input type='date' id='begin' placeholder='Digite a data inicial' onClick={((e)=> setBegin(e.currentTarget.value))}/>
-                <input type='date' id='final' placeholder='Digite a data final' onClick={((e)=> setFinal(e.currentTarget.value))}/>
-                <button onClick={(()=>SearchDate(list, begin, final))}> PESQUISAR </button>
+                <input type='date' id='begin' placeholder='Digite a data inicial' value={begin} onChange={((e)=> AddBegin(e.currentTarget.value))}/>
+                <input type='date' id='final' placeholder='Digite a data final' value={final} onChange={((e)=> setFinal(e.currentTarget.value))}/>
+                <button onClick={(()=>SearchDate(begin, final ))}> PESQUISAR </button>
             </DivPublished>
         </DivInput>
     )
