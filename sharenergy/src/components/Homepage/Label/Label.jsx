@@ -15,19 +15,6 @@ function Select(){
         if (document.querySelector('#select').value !== undefined){
             document.querySelector('#value').style.display = 'none';
         }   
-        
-        const height = document.querySelector('.divarticle');
-        if (value === 10){
-            height.style.height = '1185px'
-        } 
-        
-        if (value === 25){
-            height.style.height = '2825px'
-        }
-        
-        if (value === 50){
-            height.value.height = '5520px'
-        }
     }
 
     return (
@@ -59,6 +46,7 @@ justify-content: flex-start;
     h3 {
         color: white;
         margin-left: 16px;
+        min-width: 160px;
     }
 
     select {

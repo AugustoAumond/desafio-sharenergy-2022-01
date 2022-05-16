@@ -17,7 +17,7 @@ function Articles (){
     const dispatch = useDispatch();  
 
     useEffect (()=> {
-        axios.get("https://api.spaceflightnewsapi.net/v3/articles?_limit=100")
+        axios.get("https://api.spaceflightnewsapi.net/v3/articles?_limit=500")
     .then((response) => {   
 
         if (listredux === null){ 
@@ -31,15 +31,9 @@ function Articles (){
       setList([]);
     });    
 
-    },[counter, listredux]);    
-
-    function AddReducer(id){
-
-        dispatch(addID(id));
-    }
+    },[counter, listredux, dispatch]);    
 
     return (     
-
         <DivArticles className='divarticle' counter={counter}>
                 <DivTitulo>
                     <h2 id='title'>Titulo do Artigo</h2>
@@ -49,7 +43,7 @@ function Articles (){
                 {ShowList(list || listredux) ? ShowList(List(list, listredux), counter).map((e, index)=>( 
                     <ul key={index}>
                         <DivList>
-                            <li id='title'> <Link to="/article" style={{textDecoration:"none", color: 'white'}} onClick={(()=> AddReducer(e?.id))} > {e?.title} </Link></li>
+                            <li id='title'> <Link to="/article" style={{textDecoration:"none", color: 'white'}} onClick={(()=>  dispatch(addID(e?.id)))} > {e?.title} </Link></li>
                             <li id='published'> {e?.publishedAt} </li>
                         </DivList>
                     </ul>    
@@ -149,6 +143,7 @@ color: white;
 
     @media (max-width: 650px){
     width: 80%;
+    min-width: 280px;
 
         #title {
             font-size: 12px;

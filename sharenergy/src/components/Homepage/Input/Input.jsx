@@ -4,11 +4,17 @@ import axios from 'axios';
 
 import {editlist} from './../../../services/redux/store/lists/list.actions';
 import {addcounter} from './../../../services/redux/store/counter/counter.actions';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
+import { OpenClose } from './Input.actions';
 
 
 function Input(){
     const [search, setSearch] = useState('');
+    const [begin, setBegin] = useState();
+    const [final, setFinal] = useState();
+
+    const list = useSelector((state)=>state.list); 
 
     const dispatch = useDispatch();
 
@@ -18,23 +24,30 @@ function Input(){
 
         dispatch(addcounter(10));
 
-        if (value !== ''){
-            document.querySelector('.divselect').style.display = 'none';
-            document.querySelector('#select').value = '';
-            document.querySelector('#value').style.display = 'flex';
-        } else {
-            document.querySelector('.divselect').style.display = 'flex';
+        OpenClose(value);
+    }
+
+    function Dates(list){
+        const newList = [];
+        for (let i = 0; i < list.length; i++) {
+            newList.push(JSON.stringify(list[i].publishedAt));
         }
+        return newList;
+    }
+
+    function SearchDate( begin, final){
+        let newList;
+        let finalList;
     }
 
     useEffect (()=> {
-        axios.get(`${search !== ('') ? `https://api.spaceflightnewsapi.net/v3/articles?title_contains=${search}` : "https://api.spaceflightnewsapi.net/v3/articles?_limit=100"}`)
+        axios.get(`${search !== ('') ? `https://api.spaceflightnewsapi.net/v3/articles?title_contains=${search}` : "https://api.spaceflightnewsapi.net/v3/articles?_limit=500"}`)
     .then((response) => {
         
         dispatch(editlist(response.data));
 
     })
-    }, [search]); 
+    }, [search, dispatch]); 
 
     return (
         <DivInput>
@@ -46,9 +59,9 @@ function Input(){
 
             <DivPublished>
                 <strong>PUBLICADA ENTRE </strong>
-                <input id='begin' placeholder='Digite a data inicial'/>
-                <input id='final' placeholder='Digite a data final'/>
-                <button> PESQUISAR </button>
+                <input type='date' id='begin' placeholder='Digite a data inicial' onClick={((e)=> setBegin(e.currentTarget.value))}/>
+                <input type='date' id='final' placeholder='Digite a data final' onClick={((e)=> setFinal(e.currentTarget.value))}/>
+                <button onClick={(()=>SearchDate(list, begin, final))}> PESQUISAR </button>
             </DivPublished>
         </DivInput>
     )
