@@ -55,7 +55,7 @@ function Input(){
             setBegin('');
             setFinal(''); 
             document.querySelector('#name').style.display = 'flex';
-            
+            setSearch('a');  
         } else {
             Dates(list).forEach( (e, i) =>{        
                 if ((new Date(begin) < new Date(e.publishedAt)) && (new Date(final) > new Date(e.publishedAt))){
@@ -67,7 +67,8 @@ function Input(){
             dispatch(editlist(date));
             dispatch(addcounter(date.length));
             document.querySelector('#name').style.display = 'flex';
-        }     
+        } 
+          
     }
 
     return (

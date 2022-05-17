@@ -11,6 +11,6 @@ FUNCIONALIDADES DESENVOLVIDAS:
 
 5 - Responsividade responde bem até aproximadamente 300px;
 
-
+6 - Botão de ver mais (Homepage), dobra o número de artigos na tela;
 
 
