@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import axios from 'axios';
-import {useDispatch, useSelector } from "react-redux";
 import {  Link } from "react-router-dom";
 
+import {useDispatch, useSelector } from "react-redux";
 import {editlist} from './../../../services/redux/store/lists/list.actions';
 import {addID} from './../../../services/redux/store/id/id.actions';
+
 import {ShowList, List} from './Articles.action';
 
 function Articles (){
-    const listredux = useSelector((state)=>state.list); 
     const [list, setList] = useState();
+
+    const listredux = useSelector((state)=>state.list); 
     const counter = useSelector((state)=>state.counter); 
 
     const dispatch = useDispatch();  
 
+    // Pegar a api e adicionar a lista se não houver dado no redux;
     useEffect (()=> {
         axios.get("https://api.spaceflightnewsapi.net/v3/articles?_limit=500")
     .then((response) => {   
@@ -136,7 +138,7 @@ color: white;
     #published {
         list-style: none;
         margin-top: 15px;
-        width: 50%;
+        width: 49%;
         text-align: center;
         cursor: pointer;
     }

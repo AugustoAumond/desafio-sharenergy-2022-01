@@ -19,6 +19,17 @@ function Input(){
 
     const dispatch = useDispatch();
 
+    // Se estiver pesquisando usar a lista de pesquisa dos artigos, caso contrario utilizar a lista completa para pesquisar as datas;
+    useEffect (()=> {
+        axios.get(`${search !== ('') ? `https://api.spaceflightnewsapi.net/v3/articles?title_contains=${search}` : "https://api.spaceflightnewsapi.net/v3/articles?_limit=500"}`)
+    .then((response) => {
+        
+        dispatch(editlist(response.data));
+
+    })
+    }, [search, dispatch]); 
+
+    // Adicionar a pesquisa a variavel search, fechar o select e o input de datas;
     function AddSearch (value){
 
         setSearch(value);
@@ -28,6 +39,7 @@ function Input(){
         OpenClose(value);
     }    
 
+    // Adicionar o valor na data inicial e fechar o input da pesquisa pelo titulo;
     function AddBegin(value){
         setBegin(value);
         if (value !== ''){
@@ -35,28 +47,28 @@ function Input(){
         }
     }
 
+    // Pegar a data da lista e comparar com a data inicial e final adicionando a nova lista o resultado;
     function SearchDate(begin, final){
-        let date = [];  
-        Dates(list).forEach( (e, i) =>{        
-            if ((new Date(begin) < new Date(e.publishedAt)) && (new Date(final) > new Date(e.publishedAt))){
-                date.push(e);
-            }
-        })
-        setBegin('');
-        setFinal(''); 
-        dispatch(editlist(date));
-        dispatch(addcounter(date.length));
-        document.querySelector('#name').style.display = 'flex';
+        let date = []; 
+        if (begin?.length < 10 || final?.length < 10){
+            window.alert('Data inválida');
+            setBegin('');
+            setFinal(''); 
+            document.querySelector('#name').style.display = 'flex';
+            
+        } else {
+            Dates(list).forEach( (e, i) =>{        
+                if ((new Date(begin) < new Date(e.publishedAt)) && (new Date(final) > new Date(e.publishedAt))){
+                    date.push(e);
+                }
+            })
+            setBegin('');
+            setFinal(''); 
+            dispatch(editlist(date));
+            dispatch(addcounter(date.length));
+            document.querySelector('#name').style.display = 'flex';
+        }     
     }
-
-    useEffect (()=> {
-        axios.get(`${search !== ('') ? `https://api.spaceflightnewsapi.net/v3/articles?title_contains=${search}` : "https://api.spaceflightnewsapi.net/v3/articles?_limit=500"}`)
-    .then((response) => {
-        
-        dispatch(editlist(response.data));
-
-    })
-    }, [search, dispatch]); 
 
     return (
         <DivInput>

@@ -1,5 +1,3 @@
-
-
 export function OpenClose (value){
     if (value !== ''){
         document.querySelector('.divselect').style.display = 'none';

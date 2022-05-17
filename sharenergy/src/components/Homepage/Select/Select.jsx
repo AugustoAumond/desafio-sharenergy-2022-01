@@ -1,17 +1,14 @@
 import styled from 'styled-components';
+
 import {useDispatch} from 'react-redux';
-
-import {addcounter} from './../../../services/redux/store/counter/counter.actions';
-
+import {addcounter} from '../../../services/redux/store/counter/counter.actions';
 
 function Select(){
-
     const dispatch = useDispatch();  
 
+    // Adicionar o contador ao redux, e tirar a opção de escolher os número de artigos;
     function AddCounter(value){
-
-        dispatch(addcounter(value));
-
+        dispatch(addcounter(parseInt(value)));
         if (document.querySelector('#select').value !== undefined){
             document.querySelector('#value').style.display = 'none';
         }   

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import {useSelector, useDispatch } from "react-redux";
-
 import { addID } from '../../../services/redux/store/id/id.actions';
 
 function Buttons () {
@@ -10,6 +9,7 @@ function Buttons () {
 
     const dispatch = useDispatch();
 
+    // Próximo tirar o botão quando não houver mais artigos depois;
     function AddNext(value, index){
         document.querySelector('#back').style.display = 'block';
         if (value === id){
@@ -20,12 +20,14 @@ function Buttons () {
         } 
     }
 
+    //Pular para o próximo artigo;
     function NextArticle(){
         list.forEach((e, index) => {
             AddNext(e.id, index);
         });
     }
 
+    // Tirar o botão quando não houver artigos antes;
     function AddBack(value, index){
         document.querySelector('#next').style.display = 'block';
         if (value === id){
@@ -36,6 +38,7 @@ function Buttons () {
         } 
     }
 
+    // Voltar para o artigo anterior;
     function BackArticle(){
         list.forEach((e, index) => {
              AddBack(e.id, index);   
